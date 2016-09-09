@@ -44,7 +44,7 @@ function onButtonClick() {
     return characteristic.readValue();
   })
   .then(value => {
-    log('Session length: ' + value.length + ' value: ' + value);
+    log('Session length: ' + value.byteLength + ' value: ' + value);
     console.log('Session value is ' + value);
   })
   .catch(error => {
