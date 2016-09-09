@@ -40,11 +40,11 @@ function onButtonClick() {
     return service.getCharacteristic('1bc50004-0200-d29e-e511-446c609db825');
   })
   .then(characteristic =>{
-    log('Reading Session...')
+    log('Reading Session...');
     return characteristic.readValue();
   })
   .then(value => {
-    log('Session value is ' + )
+    log('Session value is ' + value);
     console.log('Session value is ' + value);
   })
   .catch(error => {
