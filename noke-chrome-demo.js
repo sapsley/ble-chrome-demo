@@ -44,13 +44,11 @@ function onButtonClick() {
     return characteristic.readValue();
   })
   .then(value => {
-    log('Session length: ' + value.byteLength + ' value: ');
+    log('Session length: ' + value.byteLength + ' offset: ' + value.bythOffset);
 
-    for (var i = 0; i < value.byteLength; i++) 
-    {
-      log('int value: ' + value.getUint16(i));
-      log('string test: ' + value.getUint16(i).toString(16));
-    }
+    var buf = value.buffer;
+    log('Session string: ' + String.fromCharCode.apply(null, new Uint16Array(buf)));
+
 
     console.log('Session value is ' + value);
   })
