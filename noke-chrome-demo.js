@@ -55,7 +55,7 @@ function onButtonClick() {
     {
       var byte = value.getUint8(i);
       log('BYTE: ' + byte);
-      log('HEX CHAR: ' + hexChar[(b >> 4) & 0x0f] + hexChar[b & 0x0f]);
+      log('HEX CHAR: ' + hexChar[(byte >> 4) & 0x0f] + hexChar[byte & 0x0f]);
     }
 
 
