@@ -47,7 +47,7 @@ function onButtonClick() {
     log('Session length: ' + value.byteLength + ' offset: ' + value.bythOffset);
 
     var buf = value.buffer;
-    log('Session string: ' + String.fromCharCode.apply(null, new Uint16Array(buf)));
+    log('Session string: ' + String.fromCharCode.apply(null, new Uint8Array(buf)));
 
 
     console.log('Session value is ' + value);
