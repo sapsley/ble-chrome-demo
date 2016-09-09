@@ -33,6 +33,16 @@ function onButtonClick() {
     });
     return queue;
   })
+  .then(server => {
+
+    return service.getCharacteristic('1bc50004-0200-d29e-e511-446c609db825');
+  })
+  .then(characteristic =>{
+    return characteristic.readValue();
+  })
+  .then(value => {
+    console.log('Session value is ' + value.getUint8(0));
+  })
   .catch(error => {
     log('Argh! ' + error);
   });
