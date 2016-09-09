@@ -14,7 +14,7 @@ function onLoginClick() {
   xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 
   // send the collected data as JSON
-  xhr.send(JSON.stringify({"username":username, "password":password, "companyDomain":company}));
+  xhr.send(JSON.stringify({"username":email, "password":password, "companyDomain":company}));
 
   xhr.onloadend = function () {
 
