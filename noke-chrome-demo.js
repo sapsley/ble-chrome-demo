@@ -6,6 +6,26 @@ function onLoginClick() {
 
   log('Logging in ' + email + '...');
 
+  var url = "https://noke-pro.appspot.com/";
+
+  // construct an HTTP request
+  var xhr = new XMLHttpRequest();
+  xhr.open("post", url, true);
+  xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+  // send the collected data as JSON
+  xhr.send(JSON.stringify({"username":username, "password":password, "companyDomain":company}));
+
+  xhr.onloadend = function () {
+
+      log('Login finished');
+
+  }
+    // done
+
+
+
+
 
 }
 
