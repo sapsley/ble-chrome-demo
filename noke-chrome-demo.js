@@ -1,8 +1,8 @@
 function onLoginClick() {
 
-  var company = document.querySelector('#company').value;
-  var email = document.querySelector('#email').value;
-  var password = document.querySelector('password').value;
+  var company = document.getElementById("company").value;
+  var email = document.getElementById("email").value;
+  var password = document.getElementById("password").value;
 
   log('Logging in ' + email + '...');
 
