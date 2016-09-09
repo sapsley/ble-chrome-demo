@@ -49,6 +49,15 @@ function onButtonClick() {
     var buf = value.buffer;
     log('Session string: ' + String.fromCharCode.apply(null, new Uint8Array(buf)));
 
+    var hexChar = ["0", "1", "2", "3", "4", "5", "6", "7","8", "9", "A", "B", "C", "D", "E", "F"];
+
+    for(int i = 0; i < value.byteLength; i++)
+    {
+      var byte = value.getUint8(i);
+      log('BYTE: ' + byte);
+      log('HEX CHAR: ' + hexChar[(b >> 4) & 0x0f] + hexChar[b & 0x0f]);
+    }
+
 
     console.log('Session value is ' + value);
   })
