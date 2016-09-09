@@ -17,8 +17,9 @@ function onButtonClick() {
     // Note that we could also get all services that match a specific UUID by
     // passing it to getPrimaryServices().
     log('Getting Services...');
-    return server.getPrimaryServices();
+    return server.getPrimaryService('1bc50001-0200-d29e-e511-446c609db825');
   })
+  /**
   .then(services => {
     log('Getting Characteristics...');
     let queue = Promise.resolve();
@@ -33,7 +34,8 @@ function onButtonClick() {
     });
     return queue;
   })
-  .then(server => {
+  **/
+  .then(service => {
 
     return service.getCharacteristic('1bc50004-0200-d29e-e511-446c609db825');
   })
