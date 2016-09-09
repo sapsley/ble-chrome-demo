@@ -36,14 +36,16 @@ function onButtonClick() {
   })
   **/
   .then(service => {
-
+    log('Getting Session Characteristic...');
     return service.getCharacteristic('1bc50004-0200-d29e-e511-446c609db825');
   })
   .then(characteristic =>{
+    log('Reading Session...')
     return characteristic.readValue();
   })
   .then(value => {
-    console.log('Session value is ' + value.getUint8(0));
+    log('Session value is ' + )
+    console.log('Session value is ' + value);
   })
   .catch(error => {
     log('Argh! ' + error);
