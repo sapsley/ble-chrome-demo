@@ -47,8 +47,6 @@ function onButtonClick() {
     log('Session length: ' + value.byteLength + ' offset: ' + value.bythOffset);
 
     var buf = value.buffer;
-    log('Session string: ' + String.fromCharCode.apply(null, new Uint8Array(buf)));
-
     var hexChar = ["0", "1", "2", "3", "4", "5", "6", "7","8", "9", "A", "B", "C", "D", "E", "F"];
 
     var sessionString = "";
@@ -56,14 +54,14 @@ function onButtonClick() {
     for(var i = 0; i < value.byteLength; i++)
     {
       var byte = value.getUint8(i);
-      log('BYTE: ' + byte);
+      //log('BYTE: ' + byte);
       var newHex = hexChar[(byte >> 4) & 0x0f] + hexChar[byte & 0x0f];
-      log('HEX CHAR: ' + newHex);
+      //log('HEX CHAR: ' + newHex);
       var addByte = sessionString.concat(newHex);
       sessionString = addByte;
     }
 
-    log('Session string final: ' + sessionString);
+    log('Session string: ' + sessionString);
 
 
     console.log('Session value is ' + value);
