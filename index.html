@@ -12,12 +12,12 @@ title: ble demo
   <button>Discover Noke devices</button>
 </form>
 
-<form>
-<input id="Company" type="text" placeholder ="Company">
+<form id="login">
+<input id="company" type="text" placeholder ="Company">
 <br>
-<input id="Email" type="text" placeholder ="Email">
+<input id="email" type="text" placeholder ="Email">
 <br>
-<input id="Password" type="password" placeholder ="Password"> 
+<input id="password" type="password" placeholder ="Password"> 
 <button>Login</button>
 </form>
 
@@ -35,6 +35,16 @@ document.querySelector('form').addEventListener('submit', function(event)
     event.preventDefault();
 
 	onButtonClick();
+});
+</script>
+
+<script>
+document.querySelector('login').addEventListener('submit', function(event)
+{
+	event.stopPropagation();
+    event.preventDefault();
+
+	onLoginClick();
 });
 </script>
 

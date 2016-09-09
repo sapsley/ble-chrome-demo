@@ -1,3 +1,16 @@
+function onLoginClick() {
+
+  var company = document.querySelector('#company').value;
+  var email = document.querySelector('#email').value;
+  var password = document.querySelector('password').value;
+
+  log('Logging in ' + email + '...');
+
+
+}
+
+
+
 function onButtonClick() {
  // Validate services UUID entered by user first.
   let services = document.querySelector('#optionalServices').value.split(/, ?/)
