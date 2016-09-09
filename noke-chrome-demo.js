@@ -8,12 +8,12 @@ function onLoginClick() {
 
   var url = "https://noke-pro.appspot.com/";
 
-  // construct an HTTP request
+  /**
   var xhr = new XMLHttpRequest();
   xhr.open("post", url, true);
   xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 
-  // send the collected data as JSON
+
   xhr.send(JSON.stringify({"username":email, "password":password, "companyDomain":company}));
 
   xhr.onloadend = function () {
@@ -21,9 +21,15 @@ function onLoginClick() {
       log('Login finished');
 
   }
-    // done
+  **/
+  
 
 
+$.post(url,
+    JSON.stringify({"username":email, "password":password, "companyDomain":company}),
+    function(data, status){
+        log("Data: " + data + "\nStatus: " + status);
+    });
 
 
 
