@@ -51,12 +51,19 @@ function onButtonClick() {
 
     var hexChar = ["0", "1", "2", "3", "4", "5", "6", "7","8", "9", "A", "B", "C", "D", "E", "F"];
 
+    var sessionString;
+
     for(var i = 0; i < value.byteLength; i++)
     {
       var byte = value.getUint8(i);
       log('BYTE: ' + byte);
-      log('HEX CHAR: ' + hexChar[(byte >> 4) & 0x0f] + hexChar[byte & 0x0f]);
+      var newHex = hexChar[(byte >> 4) & 0x0f] + hexChar[byte & 0x0f];
+      log('HEX CHAR: ' + newHex);
+      var addByte = sessionString.concat(newHex);
+      sessionString = addByte;
     }
+
+    log('Session string final: ' + sessionString);
 
 
     console.log('Session value is ' + value);
