@@ -6,7 +6,7 @@ function onLoginClick() {
 
   log('Logging in ' + email + '...');
 
-  var url = "https://noke-pro.appspot.com/";
+  var url = "https://larry-0-6-1-9e197a3-dot-noke-pro.appspot.com/company/login/";
 
   /**
   var xhr = new XMLHttpRequest();
