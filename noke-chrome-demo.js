@@ -153,7 +153,7 @@ function onUnlockClick()
     .then(characteristic => {
       log('Writing Characteristic');
       // Writing 1 is the signal to reset energy expended.
-      var unlockCommand = hexToBytes(command);
+      var unlockCommand = new Uint8Array(hexToBytes(command));
       return characteristic.writeValue(unlockCommand);
       })
       .then(_ => {
