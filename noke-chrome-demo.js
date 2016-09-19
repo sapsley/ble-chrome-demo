@@ -169,7 +169,7 @@ function onUnlockClick()
     log('Getting Write Characteristic!');
 
     nokeServer.getPrimaryService('1bc50001-0200-d29e-e511-446c609db825')
-    .then(service => service.getCharacteristic('1bc50002-0200-d29e-e511-446c609db825')
+    .then(service => service.getCharacteristic('1bc50002-0200-d29e-e511-446c609db825'))
     .then(characteristic => {
       log('Writing Characteristic');
       // Writing 1 is the signal to reset energy expended.
