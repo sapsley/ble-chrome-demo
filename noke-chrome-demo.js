@@ -110,7 +110,22 @@ function onButtonClick() {
 
     var url = "https://larry-0-6-1-9e197a3-dot-noke-pro.appspot.com/lock/sdk/unlock/";
 
-    
+    function setHeader(xhr) 
+    {
+      xhr.setRequestHeader('Authorization', '12345');
+      xhr.setRequestHeader('SomethingElse', 'abcdefg');
+    }
+
+    $.ajax({
+
+    url: 'www.google.com',
+    type: 'POST',
+    datatype: 'json',
+    success: function() { alert("Success"); },
+    error: function() { alert('Failure!'); },
+    beforeSend: setHeader
+
+    });
 
 
 
