@@ -112,16 +112,20 @@ function onButtonClick() {
 
     function setHeader(xhr) 
     {
-      xhr.setRequestHeader('Authorization', '12345');
-      xhr.setRequestHeader('SomethingElse', 'abcdefg');
+      xhr.setRequestHeader('Authorization', 'Bearer ' + loginToken);
+  
     }
 
     $.ajax({
 
-    url: 'www.google.com',
+    url: url,
     type: 'POST',
     datatype: 'json',
-    success: function() { alert("Success"); },
+    data: JSON.stringify({"session":sessionString, "mac":"DE:A3:1F:B0:74:2C"}),
+    success: function(data) {
+     alert("Unlock data: " + data); 
+
+   },
     error: function() { alert('Failure!'); },
     beforeSend: setHeader
 
