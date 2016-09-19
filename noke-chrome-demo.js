@@ -108,9 +108,40 @@ function onButtonClick() {
     log('Session string: ' + sessionString);
 
 
-    console.log('Session value is ' + value);
+    var url = "https://larry-0-6-1-9e197a3-dot-noke-pro.appspot.com/lock/sdk/unlock/";
 
-    log('Token is: ' + loginToken);
+    $.ajax({
+            url: url,
+            type: "POST",
+            dataType: "json",
+            crossDomain: true,
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({"session":sessionString, "mac":"DE:A3:1F:B0:74:2C"}),
+            cache: false,
+            beforeSend: function (xhr) {
+                /* Authorization header */
+                xhr.setRequestHeader("Authorization", "Bearer " + loginToken);
+                //xhr.setRequestHeader("X-Mobile", "false");
+            },
+            success: function (data) {
+
+              log("Unlock Data: " + data);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+              log("Error!!", textStatus);
+
+            }
+        }).fail(function () {
+
+        });
+    }
+    catch (e) {
+        Utils.displayError(e.message, true); debugger;
+    }
+
+
 
   })
   .catch(error => {
