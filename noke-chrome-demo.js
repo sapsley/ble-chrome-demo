@@ -110,6 +110,9 @@ function onButtonClick() {
 
     var url = "https://larry-0-6-1-9e197a3-dot-noke-pro.appspot.com/lock/sdk/unlock/";
 
+
+
+
     function setHeader(xhr) 
     {
       xhr.setRequestHeader('Authorization', 'Bearer ' + loginToken);
@@ -122,12 +125,15 @@ function onButtonClick() {
     type: 'POST',
     datatype: 'json',
     data: JSON.stringify({"session":sessionString, "mac":"DE:A3:1F:B0:74:2C"}),
+    headers: {
+       "Authorization": 'Bearer ' + nokeToken
+     },
     success: function(data) {
-     alert("Unlock data: " + data); 
+     log('Unlock data: ' + data); 
 
    },
-    error: function() { alert('Failure!'); },
-    beforeSend: setHeader
+    error: function() { log('Failure!'); },
+    
 
     });
 
