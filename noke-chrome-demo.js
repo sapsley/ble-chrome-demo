@@ -118,6 +118,8 @@ function onButtonClick() {
 
 function onUnlockClick()
 {
+
+  /**
   var url = "https://iggy-002-dot-noke-pro.appspot.com/lock/sdk/unlock/";
 
     $.ajax({
@@ -130,8 +132,6 @@ function onUnlockClick()
        "Authorization": 'Bearer ' + loginToken
      },
     success: function(data, status) {
-     log('Unlock data: ' + data.toString()); 
-
      var arr = data.commands;
 
      var command = arr[0];
@@ -155,6 +155,21 @@ function onUnlockClick()
     
 
     });
+    **/
+
+    log('Getting Write Characteristic!');
+
+    nokeService.getCharacteristic('1bc50002-0200-d29e-e511-446c609db825')
+    .then(characteristic => {
+      log('Writing Characteristic');
+      // Writing 1 is the signal to reset energy expended.
+      var resetEnergyExpended = new Uint8Array([1]);
+      return characteristic.writeValue(resetEnergyExpended);
+      })
+      .then(_ => {
+      log('Energy expended has been reset.');
+      })
+      .catch(error => { console.log(error); });
 
 }
 
