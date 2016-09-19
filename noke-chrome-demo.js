@@ -110,32 +110,7 @@ function onButtonClick() {
 
     var url = "https://larry-0-6-1-9e197a3-dot-noke-pro.appspot.com/lock/sdk/unlock/";
 
-    $.ajax({
-            url: url,
-            type: "POST",
-            dataType: "json",
-            crossDomain: true,
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(data),
-            cache: false,
-            beforeSend: function (xhr) {
-                /* Authorization header */
-                xhr.setRequestHeader("Authorization", "Basic " + Utils.getUsernamePassword());
-                xhr.setRequestHeader("X-Mobile", "false");
-            },
-            success: function (data) {
-
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-
-            }
-        }).fail(function () {
-
-        });
-    }
-    catch (e) {
-        Utils.displayError(e.message, true); debugger;
-    }
+    
 
 
 
