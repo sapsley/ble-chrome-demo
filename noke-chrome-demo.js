@@ -2,6 +2,14 @@ var loginToken;
 var nokeService;
 var sessionString;
 
+
+var sessionChar;
+var writeChar;
+var notifyChar;
+
+var device;
+var nokeServer;
+
 function onLoginClick() {
 
   var company = document.getElementById("company").value;
@@ -62,6 +70,7 @@ function onButtonClick() {
     // Note that we could also get all services that match a specific UUID by
     // passing it to getPrimaryServices().
     log('Getting Services...');
+    nokeServer = server;
     return server.getPrimaryService('1bc50001-0200-d29e-e511-446c609db825');
   })
   /**
@@ -159,7 +168,8 @@ function onUnlockClick()
 
     log('Getting Write Characteristic!');
 
-    nokeService.getCharacteristic('1bc50002-0200-d29e-e511-446c609db825')
+    nokeServer.getPrimaryService('1bc50001-0200-d29e-e511-446c609db825')
+    .then(service => service.getCharacteristic('1bc50002-0200-d29e-e511-446c609db825')
     .then(characteristic => {
       log('Writing Characteristic');
       // Writing 1 is the signal to reset energy expended.
