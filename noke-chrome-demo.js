@@ -129,6 +129,11 @@ function onButtonClick() {
     success: function(data, status) {
      log('Unlock data: ' + data.toString()); 
 
+     var arr = data.commands;
+
+     log('Command count: ' + arr.length);
+
+
    },
     error: function() { log('Failure!'); },
     
