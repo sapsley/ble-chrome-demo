@@ -9,7 +9,7 @@ function onLoginClick() {
 
   log('Logging in ' + email + '...');
 
-  var url = "https://larry-0-6-1-9e197a3-dot-noke-pro.appspot.com/company/login/";
+  var url = "https://iggy-002-dot-noke-pro.appspot.com/company/login/";
 
   /**
   var xhr = new XMLHttpRequest();
@@ -108,9 +108,7 @@ function onButtonClick() {
     log('Session string: ' + sessionString);
 
 
-    var url = "https://larry-0-6-1-9e197a3-dot-noke-pro.appspot.com/lock/sdk/unlock/";
-
-
+    var url = "https://iggy-002-dot-noke-pro.appspot.com/lock/sdk/unlock/";
 
 
     function setHeader(xhr) 
