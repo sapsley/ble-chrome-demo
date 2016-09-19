@@ -1,3 +1,6 @@
+var loginToken;
+
+
 function onLoginClick() {
 
   var company = document.getElementById("company").value;
@@ -29,10 +32,12 @@ $.post(url,
     JSON.stringify({"username":email, "password":password, "companyDomain":company}),
     function(data, status){
         log("Data: " + data + "\nStatus: " + status);
+
+        var obj = JSON.parse(data);
+        log("Token: " + obj.token);
+        loginToken = obj.token;
+
     });
-
-
-
 }
 
 
@@ -104,6 +109,9 @@ function onButtonClick() {
 
 
     console.log('Session value is ' + value);
+
+    log('Token is: ' + loginToken);
+
   })
   .catch(error => {
     log('Argh! ' + error);
