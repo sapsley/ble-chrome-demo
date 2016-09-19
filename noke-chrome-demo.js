@@ -116,21 +116,17 @@ function onButtonClick() {
             dataType: "json",
             crossDomain: true,
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({"session":sessionString, "mac":"DE:A3:1F:B0:74:2C"}),
+            data: JSON.stringify(data),
             cache: false,
             beforeSend: function (xhr) {
                 /* Authorization header */
-                xhr.setRequestHeader("Authorization", "Bearer " + loginToken);
-                //xhr.setRequestHeader("X-Mobile", "false");
+                xhr.setRequestHeader("Authorization", "Basic " + Utils.getUsernamePassword());
+                xhr.setRequestHeader("X-Mobile", "false");
             },
             success: function (data) {
 
-              log('Unlock Data: ' + data);
-
             },
             error: function (jqXHR, textStatus, errorThrown) {
-
-              log('Error!! ' + textStatus);
 
             }
         }).fail(function () {
