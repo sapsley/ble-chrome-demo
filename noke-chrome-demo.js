@@ -125,12 +125,12 @@ function onButtonClick() {
             },
             success: function (data) {
 
-              log("Unlock Data: " + data);
+              log('Unlock Data: ' + data);
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
 
-              log("Error!! " + textStatus);
+              log('Error!! ' + textStatus);
 
             }
         }).fail(function () {
