@@ -128,7 +128,7 @@ function onButtonClick() {
 function onUnlockClick()
 {
 
-  /**
+  
   var url = "https://iggy-002-dot-noke-pro.appspot.com/lock/sdk/unlock/";
 
     $.ajax({
@@ -146,26 +146,6 @@ function onUnlockClick()
      var command = arr[0];
      log('Command count: ' + arr.length + ' Command: ' + command);
 
-
-
-     nokeService.getCharacteristic('1bc50002-0200-d29e-e511-446c609db825')
-      .then(characteristic => {
-          // Writing 1 is the signal to reset energy expended.
-          log('Writing unlock');
-          var unlockCommand = hexToBytes(command);
-          return characteristic.writeValue(unlockCommand);
-      })
-      .then(_ => {
-          log('Write unlock');
-      })
-      .catch(error => { console.log(error); });
-   },
-    error: function() { log('Failure!'); },
-    
-
-    });
-    **/
-
     log('Getting Write Characteristic!');
 
     nokeServer.getPrimaryService('1bc50001-0200-d29e-e511-446c609db825')
@@ -173,14 +153,19 @@ function onUnlockClick()
     .then(characteristic => {
       log('Writing Characteristic');
       // Writing 1 is the signal to reset energy expended.
-      var resetEnergyExpended = new Uint8Array([1]);
-      return characteristic.writeValue(resetEnergyExpended);
+      var unlockCommand = hexToBytes(command);
+      return characteristic.writeValue(unlockCommand);
       })
       .then(_ => {
-      log('Energy expended has been reset.');
+      log('Unlock command has been written');
       })
       .catch(error => { console.log(error); });
+   },
+    error: function() { log('Failure!'); },
+    
 
+    });
+    
 }
 
 /* Utils */
