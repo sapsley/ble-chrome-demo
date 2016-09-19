@@ -25,6 +25,8 @@ title: ble demo
 <button>Login</button>
 </form>
 
+<button id="unlock" onclick="onUnlockClick()">Unlock</button>
+
 
 {% include_relative _includes/datalist-services.html %}
 
@@ -51,6 +53,7 @@ document.getElementById("login").addEventListener('submit', function(event)
 	onLoginClick();
 });
 </script>
+
 
 {%include utils.html %}
 

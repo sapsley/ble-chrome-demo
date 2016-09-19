@@ -1,5 +1,6 @@
 var loginToken;
-
+var nokeService;
+var sessionString;
 
 function onLoginClick() {
 
@@ -81,6 +82,7 @@ function onButtonClick() {
   **/
   .then(service => {
     log('Getting Session Characteristic...');
+    var nokeService = service;
     return service.getCharacteristic('1bc50004-0200-d29e-e511-446c609db825');
   })
   .then(characteristic =>{
@@ -93,7 +95,7 @@ function onButtonClick() {
     var buf = value.buffer;
     var hexChar = ["0", "1", "2", "3", "4", "5", "6", "7","8", "9", "A", "B", "C", "D", "E", "F"];
 
-    var sessionString = "";
+    sessionString = "";
 
     for(var i = 0; i < value.byteLength; i++)
     {
@@ -105,17 +107,18 @@ function onButtonClick() {
       sessionString = addByte;
     }
 
-    log('Session string: ' + sessionString);
+    log('Session string: ' + sessionString);  
+
+  })
+  .catch(error => {
+    log('Argh! ' + error);
+  });
+}
 
 
-    var url = "https://iggy-002-dot-noke-pro.appspot.com/lock/sdk/unlock/";
-
-
-    function setHeader(xhr) 
-    {
-      xhr.setRequestHeader('Authorization', 'Bearer ' + loginToken);
-  
-    }
+function onUnlockClick()
+{
+  var url = "https://iggy-002-dot-noke-pro.appspot.com/lock/sdk/unlock/";
 
     $.ajax({
 
@@ -131,9 +134,21 @@ function onButtonClick() {
 
      var arr = data.commands;
 
-     log('Command count: ' + arr.length);
+     var command = arr[1];
+     log('Command count: ' + arr.length + ' Command: ' + command);
 
 
+
+     nokeService.getCharacteristic('heart_rate_control_point')
+      .then(characteristic => {
+          // Writing 1 is the signal to reset energy expended.
+          var unlockCommand = hexToBytes(command);
+          return characteristic.writeValue(unlockCommand);
+      })
+      .then(_ => {
+          console.log('Write unlock');
+      })
+      .catch(error => { console.log(error); });
    },
     error: function() { log('Failure!'); },
     
@@ -142,10 +157,9 @@ function onButtonClick() {
 
 
 
-  })
-  .catch(error => {
-    log('Argh! ' + error);
-  });
+
+
+
 }
 
 /* Utils */
@@ -166,4 +180,10 @@ function anyDevice() {
   return Array.from('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
       .map(c => ({namePrefix: c}))
       .concat({name: ''});
+}
+
+function hexToBytes(hex) {
+    for (var bytes = [], c = 0; c < hex.length; c += 2)
+    bytes.push(parseInt(hex.substr(c, 2), 16));
+    return bytes;
 }
