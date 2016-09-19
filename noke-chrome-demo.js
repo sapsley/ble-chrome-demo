@@ -126,7 +126,7 @@ function onButtonClick() {
     datatype: 'json',
     data: JSON.stringify({"session":sessionString, "mac":"DE:A3:1F:B0:74:2C"}),
     headers: {
-       "Authorization": 'Bearer ' + nokeToken
+       "Authorization": 'Bearer ' + loginToken
      },
     success: function(data) {
      log('Unlock data: ' + data); 
