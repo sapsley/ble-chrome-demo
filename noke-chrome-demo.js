@@ -126,8 +126,8 @@ function onButtonClick() {
     headers: {
        "Authorization": 'Bearer ' + loginToken
      },
-    success: function(data) {
-     log('Unlock data: ' + data); 
+    success: function(data, status) {
+     log('Unlock data: ' + data.toString()); 
 
    },
     error: function() { log('Failure!'); },
