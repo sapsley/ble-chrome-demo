@@ -130,7 +130,7 @@ function onButtonClick() {
             },
             error: function (jqXHR, textStatus, errorThrown) {
 
-              log("Error!!", textStatus);
+              log("Error!! " + textStatus);
 
             }
         }).fail(function () {
