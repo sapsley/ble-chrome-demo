@@ -134,19 +134,20 @@ function onUnlockClick()
 
      var arr = data.commands;
 
-     var command = arr[1];
+     var command = arr[0];
      log('Command count: ' + arr.length + ' Command: ' + command);
 
 
 
-     nokeService.getCharacteristic('heart_rate_control_point')
+     nokeService.getCharacteristic('1bc50002-0200-d29e-e511-446c609db825')
       .then(characteristic => {
           // Writing 1 is the signal to reset energy expended.
+          log('Writing unlock');
           var unlockCommand = hexToBytes(command);
           return characteristic.writeValue(unlockCommand);
       })
       .then(_ => {
-          console.log('Write unlock');
+          log('Write unlock');
       })
       .catch(error => { console.log(error); });
    },
@@ -154,11 +155,6 @@ function onUnlockClick()
     
 
     });
-
-
-
-
-
 
 }
 
