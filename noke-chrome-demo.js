@@ -151,6 +151,8 @@ function onUploadDataClick()
   var data = new Array;
   data.push(obj);
 
+  log('Upload data: ' + JSON.stringify(data));
+
 
     $.ajax({
     url: url,
