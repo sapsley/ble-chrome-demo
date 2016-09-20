@@ -20,32 +20,14 @@ function onLoginClick() {
 
   var url = "https://iggy-002-dot-noke-pro.appspot.com/company/login/";
 
-  /**
-  var xhr = new XMLHttpRequest();
-  xhr.open("post", url, true);
-  xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-
-
-  xhr.send(JSON.stringify({"username":email, "password":password, "companyDomain":company}));
-
-  xhr.onloadend = function () {
-
-      log('Login finished');
-
-  }
-  **/
-  
-
-
-$.post(url,
+  $.post(url,
     JSON.stringify({"username":email, "password":password, "companyDomain":company}),
     function(data, status){
         log("Data: " + data + "\nStatus: " + status);
 
         var obj = JSON.parse(data);
-        log("Token: " + obj.token);
+        log("Login Result: " + obj.result);
         loginToken = obj.token;
-
     });
 }
 
@@ -67,28 +49,10 @@ function onButtonClick() {
     return device.gatt.connect();
   })
     .then(server => {
-    // Note that we could also get all services that match a specific UUID by
-    // passing it to getPrimaryServices().
     log('Getting Services...');
     nokeServer = server;
     return server.getPrimaryService('1bc50001-0200-d29e-e511-446c609db825');
   })
-  /**
-  .then(services => {
-    log('Getting Characteristics...');
-    let queue = Promise.resolve();
-    services.forEach(service => {
-      queue = queue.then(_ => service.getCharacteristics().then(characteristics => {
-        log('> Service: ' + service.uuid);
-        characteristics.forEach(characteristic => {
-          log('>> Characteristic: ' + characteristic.uuid + ' ' +
-              getSupportedProperties(characteristic));
-        });
-      }));
-    });
-    return queue;
-  })
-  **/
   .then(service => {
     log('Getting Session Characteristic...');
     var nokeService = service;
@@ -100,21 +64,7 @@ function onButtonClick() {
   })
   .then(value => {
     log('Session length: ' + value.byteLength + ' offset: ' + value.bythOffset);
-
-    var buf = value.buffer;
-    var hexChar = ["0", "1", "2", "3", "4", "5", "6", "7","8", "9", "A", "B", "C", "D", "E", "F"];
-
-    sessionString = "";
-
-    for(var i = 0; i < value.byteLength; i++)
-    {
-      var byte = value.getUint8(i);
-      //log('BYTE: ' + byte);
-      var newHex = hexChar[(byte >> 4) & 0x0f] + hexChar[byte & 0x0f];
-      //log('HEX CHAR: ' + newHex);
-      var addByte = sessionString.concat(newHex);
-      sessionString = addByte;
-    }
+    sessionString = bytesToHex(value);
 
     log('Session string: ' + sessionString);  
 
@@ -145,15 +95,9 @@ function onUnlockClick()
         .catch(error => { console.log(error); });
 
 
-
-
-
-
-  
-  var url = "https://iggy-002-dot-noke-pro.appspot.com/lock/sdk/unlock/";
+var url = "https://iggy-002-dot-noke-pro.appspot.com/lock/sdk/unlock/";
 
     $.ajax({
-
     url: url,
     type: 'POST',
     datatype: 'json',
@@ -189,26 +133,12 @@ function onUnlockClick()
     
 }
 
-function handleCharacteristicValueChanged(event) {
-
+function handleCharacteristicValueChanged(event) 
+{
   var value = event.target.value;
 
-  dataReceived = "";
-
-  var buf = value.buffer;
-  var hexChar = ["0", "1", "2", "3", "4", "5", "6", "7","8", "9", "A", "B", "C", "D", "E", "F"];
-
-    for(var i = 0; i < value.byteLength; i++)
-    {
-      var byte = value.getUint8(i);
-      //log('BYTE: ' + byte);
-      var newHex = hexChar[(byte >> 4) & 0x0f] + hexChar[byte & 0x0f];
-      //log('HEX CHAR: ' + newHex);
-      var addByte = dataReceived.concat(newHex);
-      dataReceived = addByte;
-    }
-
-    log('Data Received: ' + dataReceived); 
+  dataReceived = bytesToHex(value);
+  log('Data Received: ' + dataReceived); 
 
 }
 
@@ -238,3 +168,25 @@ function hexToBytes(hex) {
     bytes.push(parseInt(hex.substr(c, 2), 16));
     return bytes;
 }
+
+function bytesToHex(value) {
+
+    var buf = value.buffer;
+    var hexChar = ["0", "1", "2", "3", "4", "5", "6", "7","8", "9", "A", "B", "C", "D", "E", "F"];
+
+    byteString = bytesToHex(value);
+
+    for(var i = 0; i < value.byteLength; i++)
+    {
+      var byte = value.getUint8(i);
+      //log('BYTE: ' + byte);
+      var newHex = hexChar[(byte >> 4) & 0x0f] + hexChar[byte & 0x0f];
+      //log('HEX CHAR: ' + newHex);
+      var addByte = byteString.concat(newHex);
+      byteString = addByte;
+    }
+
+    return byteString;
+
+}
+
