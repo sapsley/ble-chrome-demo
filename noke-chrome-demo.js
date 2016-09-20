@@ -128,6 +128,27 @@ function onButtonClick() {
 function onUnlockClick()
 {
 
+  nokeServer.getPrimaryService('1bc50001-0200-d29e-e511-446c609db825')
+    .then(service => service.getCharacteristic('1bc50003-0200-d29e-e511-446c609db825'))
+    .then(characteristic => {
+      log('Enabling notifications');
+    
+      return characteristic.startNotifications()
+      .then(_ => {
+        characteristic.addEventListener('characteristicvaluechanged',
+                                    handleCharacteristicValueChanged);
+        });
+        })
+        .then(_ => {
+          console.log('Notifications have been started.');
+        })
+        .catch(error => { console.log(error); });
+
+
+
+
+
+
   
   var url = "https://iggy-002-dot-noke-pro.appspot.com/lock/sdk/unlock/";
 
@@ -167,6 +188,27 @@ function onUnlockClick()
     });
     
 }
+
+function handleCharacteristicValueChanged(event) {
+
+  var value = event.target.value;
+
+  dataReceived = "";
+
+    for(var i = 0; i < value.byteLength; i++)
+    {
+      var byte = value.getUint8(i);
+      //log('BYTE: ' + byte);
+      var newHex = hexChar[(byte >> 4) & 0x0f] + hexChar[byte & 0x0f];
+      //log('HEX CHAR: ' + newHex);
+      var addByte = dataReceived.concat(newHex);
+      dataReceived = addByte;
+    }
+
+    log('Data Received: ' + dataReceived); 
+
+}
+
 
 /* Utils */
 
