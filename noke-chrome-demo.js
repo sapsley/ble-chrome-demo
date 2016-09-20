@@ -23,7 +23,6 @@ function onLoginClick() {
   $.post(url,
     JSON.stringify({"username":email, "password":password, "companyDomain":company}),
     function(data, status){
-        log("Data: " + data + "\nStatus: " + status);
 
         var obj = JSON.parse(data);
         log("Login Result: " + obj.result);
@@ -174,7 +173,7 @@ function bytesToHex(value) {
     var buf = value.buffer;
     var hexChar = ["0", "1", "2", "3", "4", "5", "6", "7","8", "9", "A", "B", "C", "D", "E", "F"];
 
-    byteString = bytesToHex(value);
+    byteString = "";
 
     for(var i = 0; i < value.byteLength; i++)
     {
