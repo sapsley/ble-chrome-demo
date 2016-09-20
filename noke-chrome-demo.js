@@ -138,7 +138,7 @@ function handleCharacteristicValueChanged(event)
   dataReceived = bytesToHex(value);
   log('Data Received: ' + dataReceived); 
 
-  uploadPackets.add(dataReceived);
+  uploadPackets.push(dataReceived);
 
 }
 
@@ -149,7 +149,7 @@ function onUploadDataClick()
   var obj = JSON.stringify({"session":sessionString, "responses":uploadPackets, "mac": "DE:A3:1F:B0:74:2C", "longitude": 0, "latitude": 0});
 
   var data = new Array;
-  data.add(obj);
+  data.push(obj);
 
 
     $.ajax({
