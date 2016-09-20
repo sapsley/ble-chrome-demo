@@ -2,13 +2,13 @@ var loginToken;
 var nokeService;
 var sessionString;
 
-
 var sessionChar;
 var writeChar;
 var notifyChar;
 
-var device;
 var nokeServer;
+
+var uploadPackets = new Array;
 
 function onLoginClick() {
 
@@ -76,8 +76,7 @@ function onButtonClick() {
 
 function onUnlockClick()
 {
-
-  nokeServer.getPrimaryService('1bc50001-0200-d29e-e511-446c609db825')
+    nokeServer.getPrimaryService('1bc50001-0200-d29e-e511-446c609db825')
     .then(service => service.getCharacteristic('1bc50003-0200-d29e-e511-446c609db825'))
     .then(characteristic => {
       log('Enabling notifications');
@@ -94,7 +93,7 @@ function onUnlockClick()
         .catch(error => { console.log(error); });
 
 
-var url = "https://iggy-002-dot-noke-pro.appspot.com/lock/sdk/unlock/";
+    var url = "https://iggy-002-dot-noke-pro.appspot.com/lock/sdk/unlock/";
 
     $.ajax({
     url: url,
@@ -139,6 +138,35 @@ function handleCharacteristicValueChanged(event)
   dataReceived = bytesToHex(value);
   log('Data Received: ' + dataReceived); 
 
+  uploadPackets.add(dataReceived);
+
+}
+
+function onUploadDataClick()
+{
+  var url = "https://iggy-002-dot-noke-pro.appspot.com/lock/sdk/upload/";
+
+  var obj = JSON.stringify({"session":sessionString, "responses":uploadPackets, "mac": "DE:A3:1F:B0:74:2C", "longitude": 0, "latitude": 0});
+
+  var data = new Array;
+  data.add(obj);
+
+
+    $.ajax({
+    url: url,
+    type: 'POST',
+    datatype: 'json',
+    data: JSON.stringify({"data":data}),
+    headers: {
+       "Authorization": 'Bearer ' + loginToken
+     },
+    success: function(data, status) {
+     log('Upload data result: ' + data.result);
+   },
+    error: function() { log('Failure!'); },
+    
+
+    });
 }
 
 
